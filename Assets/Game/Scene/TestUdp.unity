@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -452,6 +452,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _connectMenu: {fileID: 1191270984}
   _inputField: {fileID: 2099631804}
+  _packer: {fileID: 30687481}
 --- !u!1 &555127880
 GameObject:
   m_ObjectHideFlags: 0
@@ -1124,6 +1125,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 509131846}
+        m_TargetAssemblyTypeName: ConnectUi, Assembly-CSharp
+        m_MethodName: ConnectToIp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1510999846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1275,10 +1288,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _baseSpeed: 3
   _noBulletSpeed: 4.5
-  _keyForward: 273
-  _keyRight: 275
-  _keyBackward: 274
-  _keyLeft: 276
+  _keyForward: 119
+  _keyRight: 100
+  _keyBackward: 115
+  _keyLeft: 97
 --- !u!114 &1779796976
 MonoBehaviour:
   m_ObjectHideFlags: 0

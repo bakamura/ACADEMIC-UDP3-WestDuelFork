@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour {
         if (_canInput) {
             _input[0] = (Input.GetKey(_keyLeft) ? -1 : 0) + (Input.GetKey(_keyRight) ? 1 : 0);
             _input[1] = (Input.GetKey(_keyBackward) ? -1 : 0) + (Input.GetKey(_keyForward) ? 1 : 0);
+            if (_input.sqrMagnitude < 0.0001f) return;
             _input = _input.normalized;
             Move(_input); 
         }

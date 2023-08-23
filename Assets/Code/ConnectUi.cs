@@ -7,7 +7,7 @@ public class ConnectUi : MonoBehaviour {
 
     [SerializeField] private GameObject _connectMenu;
     [SerializeField] private TextMeshProUGUI _inputField;
-    private DataPacker _packer;
+    [SerializeField] private DataPacker _packer;
 
     public void ShowConnectMenu() {
         _connectMenu.SetActive(!_connectMenu.activeSelf);

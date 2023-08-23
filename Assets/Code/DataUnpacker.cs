@@ -20,10 +20,12 @@ public class DataUnpacker : MonoBehaviour {
     }
 
     public void ReceivePack() {
-        foreach (IPEndPoint ip in DataPacking.partnerIps) {
-            _ipC = ip;
-            DataPacking.memoryStream = new MemoryStream(DataPacking.udpClient.Receive(ref _ipC));
-            DataPacking.ipToData[ip] = (DataPack)DataPacking.binaryF.Deserialize(DataPacking.memoryStream);
+        while(true) {
+            foreach (IPEndPoint ip in DataPacking.partnerIps) {
+                _ipC = ip;
+                DataPacking.memoryStream = new MemoryStream(DataPacking.udpClient.Receive(ref _ipC));
+                DataPacking.ipToData[ip] = (DataPack)DataPacking.binaryF.Deserialize(DataPacking.memoryStream);
+            }
         }
     }
 
