@@ -33,10 +33,12 @@ public class DataUnpacker : MonoBehaviour {
 
     private void ImplementPack() {
         foreach (IPEndPoint ip in DataPacking.partnerIps) {
-            DataPacking.ipToRb[ip].gameObject.transform.position = FloatArrayToVector3(DataPacking.ipToData[ip].senderPos);
-            DataPacking.ipToRb[ip].velocity = FloatArrayToVector3(DataPacking.ipToData[ip].senderVelocity);
-            DataPacking.ipToData[ip].updated = false;
-            _applier.ChangeNameTag(ip, DataPacking.ipToData[ip].senderName);
+            if (DataPacking.ipToData[ip].updated) {
+                DataPacking.ipToData[ip].updated = false;
+                DataPacking.ipToRb[ip].gameObject.transform.position = FloatArrayToVector3(DataPacking.ipToData[ip].senderPos);
+                DataPacking.ipToRb[ip].velocity = FloatArrayToVector3(DataPacking.ipToData[ip].senderVelocity);
+                _applier.ChangeNameTag(ip, DataPacking.ipToData[ip].senderName);
+            }
         }
     }
 
