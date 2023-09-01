@@ -9,10 +9,12 @@ public class DataUnpacker : MonoBehaviour {
 
     private Vector3 _v3C;
     private IPEndPoint _ipC;
+    private NameTagApplier _applier;
 
     private void Awake() {
         Thread receiverThread = new Thread(ReceivePack);
         receiverThread.Start();
+        _applier = FindObjectOfType<NameTagApplier>();
     }
 
     private void FixedUpdate() {
@@ -34,6 +36,7 @@ public class DataUnpacker : MonoBehaviour {
             DataPacking.ipToRb[ip].gameObject.transform.position = FloatArrayToVector3(DataPacking.ipToData[ip].senderPos);
             DataPacking.ipToRb[ip].velocity = FloatArrayToVector3(DataPacking.ipToData[ip].senderVelocity);
             DataPacking.ipToData[ip].updated = false;
+            _applier.ChangeNameTag(ip, DataPacking.ipToData[ip].senderName);
         }
     }
 

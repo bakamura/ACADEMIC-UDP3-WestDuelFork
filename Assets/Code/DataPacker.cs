@@ -1,6 +1,7 @@
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class DataPacker : MonoBehaviour {
@@ -16,10 +17,6 @@ public class DataPacker : MonoBehaviour {
     [SerializeField] private Rigidbody _rb;
     private float[] _floatArrayC = new float[3] { 0, 0, 0 };
     private byte[] _byteArrayC;
-
-    private void Awake() {
-        _dataPack.senderIp = Dns.GetHostEntry(Dns.GetHostName()).AddressList.First(f => f.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).ToString();
-    }
 
     private void FixedUpdate() {
         PreparePack();
@@ -39,6 +36,9 @@ public class DataPacker : MonoBehaviour {
     }
 
     public void AddReceiverIp(string receiverIp) {
+        receiverIp = Regex.Replace(receiverIp, @"[^0-9.]", "");
+        Debug.Log(receiverIp);
+
         if (IPAddress.TryParse(receiverIp, out IPAddress receiverAddress)) {
             IPEndPoint ip = new IPEndPoint(receiverAddress, 11000);
             if (DataPacking.partnerIps.Contains(ip)) {
@@ -46,10 +46,16 @@ public class DataPacker : MonoBehaviour {
                 return;
             }
             DataPacking.partnerIps.Add(ip);
-            DataPacking.ipToData.Add(ip, new DataPack());
-            DataPacking.ipToRb.Add(ip, Instantiate(_playerPrefab).GetComponent<Rigidbody>()); //
+            DataPacking.ipToData.Add(ip, new DataPack()); //
+            GameObject go = Instantiate(_playerPrefab);
+            DataPacking.ipToRb.Add(ip, go.GetComponent<Rigidbody>()); //
+            FindObjectOfType<NameTagApplier>().CreateNameTag(go.transform, DataPacking.ipToData[ip].senderName, ip);
         }
         Debug.LogWarning("Trying to Add Invalid IP Address!");
+    }
+
+    public void ChangeName(string newName) {
+        _dataPack.senderName = newName;
     }
 
     private float[] Vector3ToFloatArray(Vector3 v3) {
