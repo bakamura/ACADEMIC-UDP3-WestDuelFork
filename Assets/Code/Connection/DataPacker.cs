@@ -26,7 +26,6 @@ public class DataPacker : MonoBehaviour {
     private void PreparePack() {
         _dataPack.senderPos = Vector3ToFloatArray(_playerRb.transform.position);
         _dataPack.senderVelocity = Vector3ToFloatArray(_playerRb.velocity);
-        print($"pos: {new Vector3(_dataPack.senderPos[0], _dataPack.senderPos[1], _dataPack.senderPos[2])} / vel: {new Vector3(_dataPack.senderVelocity[0], _dataPack.senderVelocity[1], _dataPack.senderVelocity[2])}");
     }
 
     private void SendPack() {
@@ -48,7 +47,7 @@ public class DataPacker : MonoBehaviour {
             }
             DataPacking.partnerIps.Add(ip);
             DataPacking.ipToData.Add(ip, new DataPack()); //
-            GameObject go = Instantiate(_playerPrefab);
+            GameObject go = Instantiate( _playerPrefab, Vector3.up, Quaternion.identity);
             DataPacking.ipToRb.Add(ip, go.GetComponent<Rigidbody>()); //
             FindObjectOfType<NameTagApplier>().CreateNameTag(go.transform, DataPacking.ipToData[ip].senderName, ip);
         }
