@@ -7,7 +7,7 @@ public class DataUnpacker : MonoBehaviour {
 
     [Header("Cache")]
 
-    private Vector3 _v3C;
+    private Vector3 _v3C = Vector3.zero;
     private IPEndPoint _ipC;
     private NameTagApplier _applier;
 
@@ -46,6 +46,7 @@ public class DataUnpacker : MonoBehaviour {
         _v3C[0] = floatArr[0];
         _v3C[1] = floatArr[1];
         _v3C[2] = floatArr[2];
+
 
         return _v3C;
     }

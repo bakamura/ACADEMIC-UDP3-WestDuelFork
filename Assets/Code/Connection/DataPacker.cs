@@ -37,7 +37,7 @@ public class DataPacker : MonoBehaviour {
 
     public void AddReceiverIp(string receiverIp) {
         receiverIp = Regex.Replace(receiverIp, @"[^0-9.]", "");
-        Debug.Log(receiverIp);
+        Debug.Log(receiverIp.Length);
 
         if (IPAddress.TryParse(receiverIp, out IPAddress receiverAddress)) {
             IPEndPoint ip = new IPEndPoint(receiverAddress, 11000);
@@ -51,7 +51,7 @@ public class DataPacker : MonoBehaviour {
             DataPacking.ipToRb.Add(ip, go.GetComponent<Rigidbody>()); //
             FindObjectOfType<NameTagApplier>().CreateNameTag(go.transform, DataPacking.ipToData[ip].senderName, ip);
         }
-        Debug.LogWarning("Trying to Add Invalid IP Address!");
+        else Debug.LogWarning("Trying to Add Invalid IP Address!");
     }
 
     public void ChangeName(string newName) {
