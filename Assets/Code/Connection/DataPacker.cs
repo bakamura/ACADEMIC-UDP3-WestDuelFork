@@ -37,7 +37,7 @@ public class DataPacker : MonoBehaviour {
 
     public void AddReceiverIp(string receiverIp) {
         receiverIp = Regex.Replace(receiverIp, @"[^0-9.]", "");
-        Debug.Log(receiverIp.Length);
+        // Debug.Log(receiverIp.Length);
 
         if (IPAddress.TryParse(receiverIp, out IPAddress receiverAddress)) {
             IPEndPoint ip = new IPEndPoint(receiverAddress, 11000);

@@ -22,12 +22,9 @@ public class DataUnpacker : MonoBehaviour {
     }
 
     public void ReceivePack() {
-        while(true) {
-            foreach (IPEndPoint ip in DataPacking.partnerIps) {
-                _ipC = ip;
-                DataPacking.memoryStream = new MemoryStream(DataPacking.udpClient.Receive(ref _ipC));
-                DataPacking.ipToData[ip] = (DataPack)DataPacking.binaryF.Deserialize(DataPacking.memoryStream);
-            }
+        while (true) {
+            DataPacking.memoryStream = new MemoryStream(DataPacking.udpClient.Receive(ref _ipC));
+            if(DataPacking.partnerIps.Contains(_ipC)) DataPacking.ipToData[_ipC] = (DataPack)DataPacking.binaryF.Deserialize(DataPacking.memoryStream);
         }
     }
 
