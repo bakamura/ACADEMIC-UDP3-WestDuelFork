@@ -14,7 +14,7 @@ public class DataPacker : MonoBehaviour {
 
     private DataPack _dataPack = new DataPack();
 
-    [SerializeField] private Rigidbody _rb;
+    [SerializeField] private Rigidbody _playerRb;
     private float[] _floatArrayC = new float[3] { 0, 0, 0 };
     private byte[] _byteArrayC;
 
@@ -24,8 +24,9 @@ public class DataPacker : MonoBehaviour {
     }
 
     private void PreparePack() {
-        _dataPack.senderPos = Vector3ToFloatArray(transform.position);
-        _dataPack.senderVelocity = Vector3ToFloatArray(_rb.velocity);
+        _dataPack.senderPos = Vector3ToFloatArray(_playerRb.transform.position);
+        _dataPack.senderVelocity = Vector3ToFloatArray(_playerRb.velocity);
+        print($"pos: {new Vector3(_dataPack.senderPos[0], _dataPack.senderPos[1], _dataPack.senderPos[2])} / vel: {new Vector3(_dataPack.senderVelocity[0], _dataPack.senderVelocity[1], _dataPack.senderVelocity[2])}");
     }
 
     private void SendPack() {
@@ -63,7 +64,10 @@ public class DataPacker : MonoBehaviour {
         _floatArrayC[1] = v3.y;
         _floatArrayC[2] = v3.z;
 
-        return _floatArrayC;
+        return new float[3] { v3[0], v3[1], v3[2] };
     }
 
+    private void OnApplicationQuit() {
+        DataPacking.udpClient.Close();
+    }
 }

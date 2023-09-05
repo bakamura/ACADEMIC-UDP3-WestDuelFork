@@ -44,8 +44,7 @@ public class DataUnpacker : MonoBehaviour {
         _v3C[1] = floatArr[1];
         _v3C[2] = floatArr[2];
 
-
-        return _v3C;
+        return new Vector3(floatArr[0], floatArr[1], floatArr[2]);
     }
 
 }
